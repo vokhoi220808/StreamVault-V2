@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>StreamVault V2 — Workspace</title>
+  <link rel="stylesheet" href="design-system.css" />
+  <link rel="stylesheet" href="manager.css" />
+</head>
+<body>
+  <div class="sv-shell">
+    <aside class="sv-sidebar">
+      <div class="sb-brand">
+        <div class="sb-logo" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v11m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="sb-title">StreamVault <span>V2</span></div>
+          <div class="sb-sub">Multi-Platform Vault</div>
+        </div>
+      </div>
+
+      <nav class="sb-nav" id="mainNav">
+        <button class="nav-item active" data-view="library">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.9"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
+          <span>Video Library</span>
+          <span id="navLibCount" class="sv-pill sv-num">0</span>
+        </button>
+        <button class="nav-item" data-view="downloads">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0l-4-4m4 4l4-4M4 18h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Download Manager</span>
+          <span id="navDlCount" class="sv-pill accent sv-num">0</span>
+        </button>
+        <button class="nav-item" data-view="settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.9"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.6.78 1 1.41 1H21a2 2 0 110 4h-.09c-.63 0-1.15.4-1.51 1z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Settings Center</span>
+        </button>
+      </nav>
+
+      <div class="sb-foot">
+        <div class="sb-plat-list">
+          <span class="sv-pill accent">FB</span>
+          <span class="sv-pill purple">TikTok</span>
+          <span class="sv-pill pink">IG</span>
+          <span class="sv-pill threads">Threads</span>
+          <span class="sv-pill cyan">Douyin</span>
+          <span class="sv-pill threads">X</span>
+          <span class="sv-pill red">XHS</span>
+        </div>
+        <a href="merge.html?batch=1" target="_blank" class="sv-btn sv-btn-purple" style="width:100%">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 7l4-4 4 4M12 3v10m-7 4h14a2 2 0 012 2v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-1a2 2 0 012-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Mở Merge Studio Runner</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="sv-workspace">
+      <!-- VIDEO LIBRARY VIEW -->
+      <section id="view-library" class="sv-view">
+          <header class="ws-head">
+          <div>
+            <h2>Video Library</h2>
+            <p class="ws-sub">Video đang chạy được ghim lên đầu · Facebook, TikTok, Instagram, Threads, Douyin, X &amp; Xiaohongshu</p>
+          </div>
+          <div class="ws-actions">
+            <button id="libRefresh" class="sv-btn">⟳ Làm mới nguồn</button>
+            <button id="libDownloadSelected" class="sv-btn sv-btn-primary">⬇ Tải tất cả</button>
+          </div>
+        </header>
+
+        <div class="ws-toolbar">
+          <input id="libSearch" class="sv-input" type="search" placeholder="Tìm theo tiêu đề, tác giả, ID hoặc URL..." />
+          <select id="libTabFilter" class="sv-select"><option value="all">Tất cả tab</option></select>
+          <select id="libPlatFilter" class="sv-select">
+            <option value="all">Mọi nền tảng</option>
+            <option value="facebook">Facebook</option>
+            <option value="tiktok">TikTok</option>
+            <option value="instagram">Instagram</option>
+            <option value="threads">Threads</option>
+            <option value="douyin">Douyin</option>
+            <option value="x">X (Twitter)</option>
+            <option value="xiaohongshu">Xiaohongshu</option>
+          </select>
+          <select id="libResFilter" class="sv-select">
+            <option value="all">Mọi chất lượng</option>
+            <option value="direct">Direct MP4</option>
+            <option value="dash">DASH Mux</option>
+            <option value="hd">HD / 720p+</option>
+            <option value="slideshow">Slideshow / Album</option>
+          </select>
+          <select id="libStatusFilter" class="sv-select">
+            <option value="all">Mọi trạng thái</option>
+            <option value="unseen">Chưa tải</option>
+            <option value="downloaded">✓ Đã tải</option>
+          </select>
+          <select id="libSort" class="sv-select">
+            <option value="newest">Đang chạy &amp; Mới nhất</option>
+            <option value="quality">Chất lượng cao nhất</option>
+            <option value="duration">Thời lượng dài nhất</option>
+            <option value="title">Tên A–Z</option>
+          </select>
+        </div>
+
+        <div class="ws-batch-strip">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+            <label class="sv-check-label"><input type="checkbox" class="sv-check" id="libSelectAll" /> <span>Chọn tất cả video đang lọc</span></label>
+            <label class="sv-check-label"><input type="checkbox" class="sv-check" id="libSkipDup" checked /> <span>Bỏ qua video đã tải</span></label>
+          </div>
+          <span id="libStats" class="muted sv-num">0 video</span>
+        </div>
+
+        <div id="libEmpty" class="sv-empty" hidden>
+          Chưa có video nào trong bộ nhớ. Hãy mở một tab Facebook, TikTok, Instagram, Threads, Douyin, X hoặc Xiaohongshu, phát hoặc cuộn feed rồi bấm <b>⟳ Làm mới nguồn</b>.
+        </div>
+        <div id="libGrid" class="lib-grid"></div>
+        <div id="libMoreWrap" class="lib-more-wrap"></div>
+      </section>
+
+      <!-- DOWNLOAD MANAGER VIEW -->
+      <section id="view-downloads" class="sv-view" hidden>
+        <header class="ws-head">
+          <div>
+            <h2>Download Manager</h2>
+            <p class="ws-sub">Hàng đợi bền vững MV3 · Tốc độ &amp; ETA thực · Tự làm mới link hết hạn</p>
+          </div>
+          <div class="ws-actions">
+            <label class="inline-field">
+              <span>Đồng thời:</span>
+              <select id="dmConcurrency" class="sv-select">
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+              </select>
+            </label>
+            <button id="dmOpenFolder" class="sv-btn">📁 Mở thư mục tải</button>
+          </div>
+        </header>
+
+        <div class="dm-kpi-grid" id="dmKpis">
+          <button class="dm-kpi" data-status="all">
+            <span class="kpi-lbl">Tổng tác vụ</span>
+            <strong id="cntAll" class="sv-num">0</strong>
+          </button>
+          <button class="dm-kpi accent" data-status="active">
+            <span class="kpi-lbl">Đang tải / Ghép</span>
+            <strong id="cntActive" class="sv-num">0</strong>
+          </button>
+          <button class="dm-kpi purple" data-status="queued">
+            <span class="kpi-lbl">Đang chờ</span>
+            <strong id="cntQueued" class="sv-num">0</strong>
+          </button>
+          <button class="dm-kpi success" data-status="completed">
+            <span class="kpi-lbl">Hoàn tất</span>
+            <strong id="cntDone" class="sv-num">0</strong>
+          </button>
+          <button class="dm-kpi error" data-status="failed">
+            <span class="kpi-lbl">Lỗi / Hủy</span>
+            <strong id="cntFailed" class="sv-num">0</strong>
+          </button>
+        </div>
+
+        <div class="dm-tabs" id="dmTabs">
+          <button class="sv-chip active" data-status="all">Tất cả</button>
+          <button class="sv-chip" data-status="active">Đang tải</button>
+          <button class="sv-chip" data-status="queued">Đang chờ</button>
+          <button class="sv-chip" data-status="completed">Hoàn tất</button>
+          <button class="sv-chip" data-status="failed">Lỗi / Hủy</button>
+          <button class="sv-chip" data-status="archive">Kho lưu (<span id="cntArchive">0</span>)</button>
+          <div class="dm-batch-btns">
+            <button id="dmExportJson" class="sv-btn" title="Xuất toàn bộ lịch sử (gồm kho lưu) ra JSON">⬇ JSON</button>
+            <button id="dmExportCsv" class="sv-btn" title="Xuất toàn bộ lịch sử (gồm kho lưu) ra CSV">⬇ CSV</button>
+            <button id="dmImportJson" class="sv-btn" title="Nhập lại lịch sử tải từ file JSON">⬆ Nhập</button>
+            <input id="dmImportFile" type="file" accept=".json,application/json" hidden />
+            <button id="dmRetryFailed" class="sv-btn">↻ Thử lại lỗi</button>
+            <button id="dmClearDone" class="sv-btn">Xóa đã xong</button>
+            <button id="dmClearFailed" class="sv-btn sv-btn-danger">Xóa lỗi</button>
+          </div>
+        </div>
+
+        <div id="dmArchiveBar" class="ws-toolbar" style="margin-bottom:12px;" hidden>
+          <input id="dmArchiveSearch" class="sv-input" type="search" placeholder="Tìm trong kho lưu IndexedDB theo tiêu đề, tác giả, ID hoặc file..." />
+          <button id="dmArchiveClear" class="sv-btn sv-btn-danger">🗑 Xóa kho lưu</button>
+        </div>
+
+        <div id="dmEmpty" class="sv-empty" hidden>Chưa có tác vụ tải nào trong danh sách lọc.</div>
+        <div id="dmList" class="dm-list"></div>
+      </section>
+
+      <!-- SETTINGS CENTER VIEW -->
+      <section id="view-settings" class="sv-view" hidden>
+        <header class="ws-head">
+          <div>
+            <h2>Settings Center</h2>
+            <p class="ws-sub">Cấu hình tải xuống, phân loại thư mục, nhận diện luồng và giao diện Midnight Glass</p>
+          </div>
+          <div class="ws-actions">
+            <span id="settingsSavedMsg" class="sv-pill success" hidden>✓ Đã lưu tự động</span>
+          </div>
+        </header>
+
+        <div class="settings-grid">
+          <div class="set-card">
+            <h3>GENERAL</h3>
+            <div class="set-row">
+              <div><strong>Chất lượng mặc định</strong><div class="muted">Áp dụng cho nút tải nhanh, Alt+D và tải hàng loạt</div></div>
+              <select id="s_quality" class="sv-select"><option value="hd">Ưu tiên HD</option><option value="sd">Ưu tiên SD</option></select>
+            </div>
+            <div class="set-row">
+              <div><strong>Lưu vào thư mục con</strong><div class="muted">Tạo thư mục riêng trong Downloads</div></div>
+              <input id="s_subfolder" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div>
+                <strong>Mẫu thư mục con (hỗ trợ biến động)</strong>
+                <div class="muted">Biến: <code>{platform}</code>, <code>{author}</code>, <code>{date}</code></div>
+                <div id="folderPresets" style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;">
+                  <button type="button" class="sv-chip" data-tpl="FB_TikTok_Videos">Mặc định</button>
+                  <button type="button" class="sv-chip" data-tpl="StreamVault/{platform}/{author}">{platform}/{author}</button>
+                  <button type="button" class="sv-chip" data-tpl="StreamVault/{platform}">{platform}</button>
+                  <button type="button" class="sv-chip" data-tpl="StreamVault/{date}/{platform}">{date}/{platform}</button>
+                </div>
+              </div>
+              <input id="s_subfolderName" class="sv-input" style="width:210px" />
+            </div>
+            <div class="set-row">
+              <div><strong>Tự đóng Merge Studio khi xong</strong><div class="muted">Đóng tab ghép sau 2.6 giây</div></div>
+              <input id="s_autoClose" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div>
+                <strong>Mẫu tên file tùy biến</strong>
+                <div class="muted">Biến: <code>{title}</code>, <code>{author}</code>, <code>{platform}</code>, <code>{id}</code>, <code>{shortid}</code>, <code>{quality}</code>, <code>{date}</code></div>
+                <div id="filenamePresets" style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;">
+                  <button type="button" class="sv-chip" data-fntpl="{title}_{id}_{quality}">Mặc định</button>
+                  <button type="button" class="sv-chip" data-fntpl="{author}_{title}_{quality}">{author}_{title}</button>
+                  <button type="button" class="sv-chip" data-fntpl="{date}_{author}_{shortid}_{quality}">{date}_{author}</button>
+                  <button type="button" class="sv-chip" data-fntpl="{platform}_{id}_{quality}">{platform}_{id}</button>
+                </div>
+              </div>
+              <input id="s_filenameFormat" class="sv-input" style="width:220px" />
+            </div>
+            <div class="set-row">
+              <div><strong>Lưu kèm mô tả &amp; hashtag (.txt)</strong><div class="muted">Xuất thêm file văn bản chứa caption, tác giả và link gốc</div></div>
+              <input id="s_saveSidecarTxt" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Tải kèm phụ đề gốc (.srt)</strong><div class="muted">Tự động chuyển VTT sang SRT và lưu kèm khi video có phụ đề</div></div>
+              <input id="s_saveSubtitles" type="checkbox" class="sv-switch" />
+            </div>
+          </div>
+
+          <div class="set-card">
+            <h3>DOWNLOADS</h3>
+            <div class="set-row">
+              <div><strong>Số lượt tải song song tối đa</strong><div class="muted">Từ 1 đến 5 luồng cùng lúc</div></div>
+              <select id="s_maxConcurrent" class="sv-select">
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+              </select>
+            </div>
+            <div class="set-row">
+              <div><strong>Số lần tự thử lại khi lỗi</strong><div class="muted">Áp dụng cho tải trực tiếp bị ngắt</div></div>
+              <select id="s_retryLimit" class="sv-select">
+                <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5">5</option>
+              </select>
+            </div>
+            <div class="set-row">
+              <div><strong>Ghép DASH ngầm (Chrome Offscreen)</strong><div class="muted">Tự động ghép hình + tiếng trong nền mà không mở tab mới</div></div>
+              <input id="s_silentDashMerge" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Gom Slideshow / Album thành 1 file .zip</strong><div class="muted">Đóng gói ảnh, clip slide và nhạc nền thay vì tải rời từng file</div></div>
+              <input id="s_zipSlideshow" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Bỏ qua video đã tải trùng</strong><div class="muted">Tự loại bỏ video đã hoàn tất khi Tải tất cả</div></div>
+              <input id="s_skipDuplicates" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Thông báo hoàn tất trên icon</strong><div class="muted">Hiện dấu ✓ trên badge khi tải xong</div></div>
+              <input id="s_notifications" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Hành vi tải mặc định</strong><div class="muted">Cách xử lý khi video có cả MP4 và DASH</div></div>
+              <select id="s_defaultBehavior" class="sv-select">
+                <option value="auto">Tự động (MP4 / Ghép DASH)</option>
+                <option value="prefer_direct">Ưu tiên Direct MP4</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="set-card">
+            <h3>DETECTION</h3>
+            <div class="set-row">
+              <div><strong>Quét tự động khi mở / cuộn</strong><div class="muted">Tự thu thập video mới trong tab</div></div>
+              <input id="s_autoScan" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Chu kỳ Tự cuộn (ms)</strong><div class="muted">700ms (nhanh) – 3000ms (chậm)</div></div>
+              <input id="s_autoScrollIntervalMs" type="number" min="700" max="4000" step="100" class="sv-input sv-num" style="width:100px" />
+            </div>
+            <div class="set-row">
+              <div><strong>Giới hạn Tự cuộn (Batch Grabber)</strong><div class="muted">Số video mới tối đa trước khi tự dừng (0 = không giới hạn)</div></div>
+              <select id="s_autoScrollLimit" class="sv-select">
+                <option value="0">Không giới hạn</option><option value="10">10 mới</option><option value="20">20 mới</option><option value="50">50 mới</option>
+              </select>
+            </div>
+            <div class="set-row">
+              <div><strong>Dừng Tự cuộn khi gặp video đã tải</strong><div class="muted">Tự dừng khi quét tới chuỗi video đã nằm trong lịch sử</div></div>
+              <input id="s_autoScrollStopOnDup" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Tự tải ngay khi cuộn (Auto-Grab)</strong><div class="muted">Tự động đẩy video mới chưa tải vào Download Manager khi cuộn</div></div>
+              <input id="s_autoScrollAutoDownload" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Hiện luồng mạng dự phòng (Fallback)</strong><div class="muted">Hiển thị luồng MP4 bắt từ network trong Popup</div></div>
+              <input id="s_showNetworkFallback" type="checkbox" class="sv-switch" />
+            </div>
+            <div class="set-row">
+              <div><strong>Ghi log chẩn đoán lỗi</strong><div class="muted">Lưu sự kiện lỗi không chứa token</div></div>
+              <input id="s_diagnosticsEnabled" type="checkbox" class="sv-switch" />
+            </div>
+          </div>
+
+          <div class="set-card">
+            <h3>APPEARANCE</h3>
+            <div class="set-row">
+              <div><strong>Giao diện (Theme)</strong><div class="muted">Midnight Glass Dark / Light / System</div></div>
+              <select id="s_theme" class="sv-select">
+                <option value="dark">Dark (Midnight Glass)</option>
+                <option value="light">Light</option>
+                <option value="system">Theo hệ thống</option>
+              </select>
+            </div>
+            <div class="set-row">
+              <div><strong>Mật độ hiển thị</strong><div class="muted">Thoải mái hoặc Gọn nhẹ</div></div>
+              <select id="s_density" class="sv-select">
+                <option value="comfortable">Comfortable</option>
+                <option value="compact">Compact</option>
+              </select>
+            </div>
+            <div class="set-row">
+              <div><strong>Giảm chuyển động (Reduced Motion)</strong><div class="muted">Tắt hiệu ứng chuyển tiếp</div></div>
+              <input id="s_reducedMotion" type="checkbox" class="sv-switch" />
+            </div>
+          </div>
+
+          <div class="set-card wide">
+            <div class="diag-head">
+              <div>
+                <h3>ADVANCED &amp; DIAGNOSTICS</h3>
+                <div class="muted">Nhật ký sự kiện đã được lọc bỏ chữ ký/token bảo mật</div>
+              </div>
+              <div class="ws-actions">
+                <button id="exportDiag" class="sv-btn">⬇ Xuất Diagnostics JSON</button>
+                <button id="clearArchive" class="sv-btn">Xóa kho lưu ID (<span id="archiveCountBadge">0</span>)</button>
+                <button id="clearLogs" class="sv-btn">Xóa log</button>
+                <button id="resetSettings" class="sv-btn sv-btn-danger">↺ Khôi phục mặc định</button>
+              </div>
+            </div>
+            <pre id="diagLogs" class="diag-box">Chưa có log chẩn đoán.</pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Inline Preview Modal -->
+  <div id="previewModal" class="sv-modal" hidden>
+    <div class="sv-modal-card">
+      <div class="sv-modal-head">
+        <div class="sv-modal-title-wrap">
+          <div id="pvTitle" class="sv-modal-title">Xem trước nội dung</div>
+          <div id="pvMeta" class="sv-modal-meta"></div>
+        </div>
+        <button id="pvClose" class="sv-btn sv-icon-btn" title="Đóng (Esc)">✕</button>
+      </div>
+      <div id="pvBody" class="sv-modal-body"></div>
+      <div id="pvFoot" class="sv-modal-foot"></div>
+    </div>
+  </div>
+
+  <script src="sv-core.js"></script>
+  <script src="manager.js"></script>
+</body>
+</html>

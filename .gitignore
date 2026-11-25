@@ -1,0 +1,16 @@
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Chrome extension temporary unpacked metadata
+fb-video-downloader/_metadata/
+_metadata/
+
+# Node
+node_modules/

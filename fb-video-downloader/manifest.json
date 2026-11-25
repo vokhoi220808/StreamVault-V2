@@ -1,0 +1,86 @@
+{
+  "manifest_version": 3,
+  "name": "StreamVault V2 — Video Downloader",
+  "version": "2.7.0",
+  "minimum_chrome_version": "109",
+  "description": "Tải video, Story & album từ Facebook, TikTok, Instagram, Threads, Douyin, X, Xiaohongshu; ghép DASH ngầm, phụ đề SRT & gom ZIP.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["downloads", "webRequest", "storage", "contextMenus", "offscreen", "declarativeNetRequestWithHostAccess"],
+  "declarative_net_request": {
+    "rule_resources": [
+      { "id": "tiktok_headers", "enabled": true, "path": "rules.json" }
+    ]
+  },
+  "host_permissions": [
+    "*://*.facebook.com/*",
+    "*://*.fbcdn.net/*",
+    "*://*.tiktok.com/*",
+    "*://*.tiktokcdn.com/*",
+    "*://*.tiktokcdn-us.com/*",
+    "*://*.tiktokcdn-eu.com/*",
+    "*://*.tiktokv.com/*",
+    "*://*.byteoversea.com/*",
+    "*://*.instagram.com/*",
+    "*://*.cdninstagram.com/*",
+    "*://*.threads.net/*",
+    "*://*.threads.com/*",
+    "*://*.douyin.com/*",
+    "*://*.douyinvod.com/*",
+    "*://*.zjcdn.com/*",
+    "*://*.byteimg.com/*",
+    "*://*.x.com/*",
+    "*://*.twitter.com/*",
+    "*://*.twimg.com/*",
+    "*://*.xiaohongshu.com/*",
+    "*://*.xhscdn.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "StreamVault V2",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.facebook.com/*",
+        "*://*.tiktok.com/*",
+        "*://*.instagram.com/*",
+        "*://*.threads.net/*",
+        "*://*.threads.com/*",
+        "*://*.douyin.com/*",
+        "*://*.x.com/*",
+        "*://*.twitter.com/*",
+        "*://*.xiaohongshu.com/*"
+      ],
+      "js": ["parser.js", "inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://*.facebook.com/*",
+        "*://*.tiktok.com/*",
+        "*://*.instagram.com/*",
+        "*://*.threads.net/*",
+        "*://*.threads.com/*",
+        "*://*.douyin.com/*",
+        "*://*.x.com/*",
+        "*://*.twitter.com/*",
+        "*://*.xiaohongshu.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

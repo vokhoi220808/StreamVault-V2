@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>StreamVault V2</title>
+  <link rel="stylesheet" href="design-system.css" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="sv-header">
+    <div class="sv-brand">
+      <div class="sv-logo" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3v11m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="sv-brand-text">
+        <div class="sv-title-row">
+          <h1>StreamVault</h1>
+          <span class="sv-ver">V2</span>
+        </div>
+        <div class="sv-meta-row">
+          <span id="liveDot" class="sv-live-dot"></span>
+          <span id="platformBadge" class="sv-platform">Đang kết nối...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sv-head-actions">
+      <button id="autoScroll" class="sv-btn sv-scroll-btn" title="Tự động cuộn để gom video">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m0 0l-5-5m5 5l5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="autoScrollTxt">Cuộn</span>
+      </button>
+      <button id="grabOptsBtn" class="sv-btn sv-icon-btn" title="Cấu hình Batch Profile Grabber">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="rescan" class="sv-btn sv-icon-btn" title="Quét lại trang hiện tại">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 11-2.64-6.36M21 4v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="clearVideos" class="sv-btn sv-icon-btn sv-btn-ghost" title="Xóa danh sách video">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2m-9 0v14a2 2 0 002 2h6a2 2 0 002-2V6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="openSettings" class="sv-btn sv-icon-btn sv-btn-ghost" title="Settings Center">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.6.78 1 1.41 1H21a2 2 0 110 4h-.09c-.63 0-1.15.4-1.51 1z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="openManager" class="sv-btn sv-btn-purple sv-icon-btn" title="Mở Workspace đầy đủ (Library & Manager)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M10 14L21 3M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="sv-toolbar" id="controlsSection">
+    <div class="sv-tool-top">
+      <div class="sv-search-box">
+        <svg class="sv-search-ic" width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search" class="sv-input" type="search" placeholder="Tìm tiêu đề, tác giả, ID..." />
+      </div>
+      <div class="sv-seg" id="filterPills">
+        <button class="sv-seg-btn active" data-filter="all">Tất cả</button>
+        <button class="sv-seg-btn" data-filter="direct">MP4</button>
+        <button class="sv-seg-btn" data-filter="dash">DASH</button>
+      </div>
+      <select id="quickQuality" class="sv-select" title="Chất lượng ưu tiên">
+        <option value="best">Best</option>
+        <option value="hd">HD</option>
+        <option value="sd">SD</option>
+      </select>
+    </div>
+
+    <div class="sv-tool-bottom" id="batchBar">
+      <div class="sv-counts-row">
+        <span id="videoCountPill" class="sv-num sv-count-txt">0 video</span>
+        <span class="sv-dot-sep">·</span>
+        <span id="streamCountPill" class="sv-num sv-count-txt">0 DASH</span>
+        <label class="sv-check-label" title="Chọn tất cả video"><input type="checkbox" class="sv-check" id="selectAll" /><span>Tất cả</span></label>
+        <label class="sv-check-label" title="Bỏ qua video đã tải thành công"><input type="checkbox" class="sv-check" id="skipDupToggle" checked /><span>Tránh trùng</span></label>
+      </div>
+      <button id="dlBatch" class="sv-btn sv-btn-primary sv-batch-cta" hidden>⬇ Tải tất cả</button>
+    </div>
+
+    <div class="sv-grab-bar" id="grabBar" hidden>
+      <span class="sv-grab-lbl">Grabber:</span>
+      <select id="grabLimit" class="sv-select" title="Giới hạn số video mới mỗi lần cuộn">
+        <option value="0">Không giới hạn</option>
+        <option value="10">Tối đa 10 mới</option>
+        <option value="20">Tối đa 20 mới</option>
+        <option value="50">Tối đa 50 mới</option>
+      </select>
+      <label class="sv-check-label" title="Tự dừng cuộn khi gặp chuỗi video đã tải trước đó">
+        <input type="checkbox" class="sv-check" id="grabStopDup" />
+        <span>Dừng khi trùng</span>
+      </label>
+      <label class="sv-check-label" title="Tự đưa video mới vào hàng đợi tải ngay khi đang cuộn">
+        <input type="checkbox" class="sv-check" id="grabAutoDownload" />
+        <span>Tự tải ngay</span>
+      </label>
+    </div>
+  </section>
+
+  <main class="sv-main">
+    <div id="stateBanner" class="sv-banner">Đang kiểm tra video trên trang...</div>
+    <ul id="list" class="sv-list"></ul>
+
+    <div id="streamsHeader" class="sv-section-head" hidden>
+      <span>Luồng mạng dự phòng (Network Fallback)</span>
+      <button id="clearStreams" class="sv-link-btn">Xóa luồng</button>
+    </div>
+    <ul id="streams" class="sv-list"></ul>
+  </main>
+
+  <footer class="sv-footer" id="dlStatusBar" title="Nhấn để mở Download Manager">
+    <div class="sv-footer-top">
+      <div class="sv-footer-left">
+        <span id="dlStatusDot" class="sv-foot-dot"></span>
+        <span id="dlStatusText" class="sv-num">Sẵn sàng · Alt+D tải nhanh</span>
+      </div>
+      <div class="sv-footer-links">
+        <button id="openLibraryBtn" class="sv-link-btn">Thư viện</button>
+        <button id="footerManagerBtn" class="sv-link-btn">Manager ↗</button>
+      </div>
+    </div>
+    <div class="sv-mini-bar" id="footerBarWrap" hidden><div id="footerBar"></div></div>
+  </footer>
+
+  <script src="sv-core.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

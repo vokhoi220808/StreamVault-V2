@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>StreamVault V2 — MP4 Merge Studio</title>
+  <link rel="stylesheet" href="design-system.css" />
+  <link rel="stylesheet" href="merge.css" />
+</head>
+<body>
+  <div class="studio-wrap">
+    <header class="studio-head">
+      <div class="studio-brand">
+        <div class="studio-badge">STUDIO</div>
+        <div>
+          <h1 id="title">MP4 Merge Studio</h1>
+          <div id="name" class="studio-sub">Đang chuẩn bị...</div>
+        </div>
+      </div>
+      <div class="studio-top-actions">
+        <a href="manager.html#downloads" class="sv-btn">Download Manager ↗</a>
+      </div>
+    </header>
+
+    <div class="studio-stepper" id="stepper">
+      <div class="step active" id="st1"><span>1</span>Tải luồng</div>
+      <div class="step-line"></div>
+      <div class="step" id="st2"><span>2</span>Kiểm tra fMP4</div>
+      <div class="step-line"></div>
+      <div class="step" id="st3"><span>3</span>Ghép Container</div>
+      <div class="step-line"></div>
+      <div class="step" id="st4"><span>4</span>Lưu File</div>
+    </div>
+
+    <section id="batchInfo" class="studio-panel" hidden>
+      <div class="batch-row">
+        <div>
+          <strong>Hàng đợi ghép DASH</strong>
+          <div id="batchCount" class="muted sv-num">Đang khởi tạo...</div>
+        </div>
+        <button id="stopBatch" class="sv-btn sv-btn-danger">⏹ Dừng</button>
+      </div>
+    </section>
+
+    <section class="studio-grid">
+      <div class="studio-panel">
+        <div class="panel-head">
+          <span class="panel-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
+            Luồng Hình (Video)
+          </span>
+          <span id="vt" class="sv-pill accent sv-num">0%</span>
+        </div>
+        <div class="bar"><div id="vb"></div></div>
+        <dl class="specs" id="vSpecs">
+          <div><dt>Nguồn</dt><dd id="vHost">—</dd></div>
+          <div><dt>Codec / Container</dt><dd id="vCodec">Đang đọc...</dd></div>
+          <div><dt>Kích thước / Đoạn</dt><dd id="vDims">—</dd></div>
+        </dl>
+      </div>
+
+      <div class="studio-panel">
+        <div class="panel-head">
+          <span class="panel-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 18V6l11-2v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="16" r="3" stroke="currentColor" stroke-width="2"/></svg>
+            Luồng Tiếng (Audio)
+          </span>
+          <span id="at" class="sv-pill purple sv-num">0%</span>
+        </div>
+        <div class="bar"><div id="ab" class="purple"></div></div>
+        <dl class="specs" id="aSpecs">
+          <div><dt>Nguồn</dt><dd id="aHost">—</dd></div>
+          <div><dt>Codec / Container</dt><dd id="aCodec">Đang đọc...</dd></div>
+          <div><dt>Timescale / Đoạn</dt><dd id="aDims">—</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="studio-panel">
+      <div class="panel-head">
+        <span>Tiến trình ghép container (không re-encode)</span>
+        <span id="muxPct" class="sv-pill sv-num">0%</span>
+      </div>
+      <div class="bar"><div id="muxBar" class="success"></div></div>
+      <div id="status" class="studio-status">Đang khởi tạo...</div>
+      <div id="outputInfo" class="output-info" hidden></div>
+
+      <div id="doneActions" class="action-row" hidden>
+        <button id="openFolder" class="sv-btn sv-btn-primary">📁 Mở thư mục tải</button>
+        <button id="reDownload" class="sv-btn">⬇ Lưu lại file</button>
+      </div>
+
+      <div id="fallback" class="fallback-box" hidden>
+        <div class="fallback-title">Không ghép tự động được — tải từng luồng hoặc ghép bằng FFmpeg</div>
+        <div class="action-row">
+          <button id="retry" class="sv-btn sv-btn-primary">↻ Thử lại</button>
+          <button id="dlV" class="sv-btn">⬇ Tải file hình</button>
+          <button id="dlA" class="sv-btn">⬇ Tải file tiếng</button>
+          <button id="copyFfmpeg" class="sv-btn">📋 Chép lệnh FFmpeg</button>
+        </div>
+        <pre id="ffmpegCmd" class="ffmpeg-code">ffmpeg -i video.mp4 -i audio.m4a -c copy output.mp4</pre>
+      </div>
+    </section>
+
+    <p class="studio-note">
+      Giữ tab này mở cho đến khi quá trình ghép và lưu hoàn tất. Bộ ghép chỉ xử lý container MP4 phân mảnh (fMP4 / ISO BMFF) — không mã hóa lại video.
+    </p>
+  </div>
+
+  <script src="sv-core.js"></script>
+  <script src="mp4mux.js"></script>
+  <script src="sv-dash.js"></script>
+  <script src="merge.js"></script>
+</body>
+</html>
